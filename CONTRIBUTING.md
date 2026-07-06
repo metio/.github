@@ -19,6 +19,25 @@ expected versus actual behavior — to reproduce the problem.
 The `main` branch always holds the latest public stable release. Branch from it
 for your change and open a pull request back against it.
 
+## Development environment
+
+Projects define their entire toolchain in a **[nix](https://nixos.org) flake**
+(`flake.nix` + `flake.lock`), so CI and your machine run byte-identical tool
+versions — a gate that is green locally is green in CI by construction, and no
+host toolchain is required. Install Nix (with flakes enabled), then run any
+gate through the dev shell:
+
+```shell
+nix develop --command <gate>   # e.g. nix develop --command go test ./...
+```
+
+or run `nix develop` to drop into a shell with every tool on `PATH` (it prints
+the available commands on entry). The flake is the single source of tool
+versions; Renovate keeps `flake.lock` current. On Windows, work inside
+[WSL2](https://learn.microsoft.com/windows/wsl/) — Nix runs on Linux and macOS.
+A project that does not yet ship a `flake.nix` documents its own setup in its
+`README`.
+
 ## Pull requests
 
 - Keep each pull request focused on a single change.
