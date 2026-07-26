@@ -45,7 +45,49 @@ A project that does not yet ship a `flake.nix` documents its own setup in its
   changelog and the calendar-versioned release are generated from them.
 - Every file carries an SPDX license header (or an entry in `REUSE.toml`); the
   REUSE check enforces it.
+- Sign off every commit (see below).
 - The `Verify` check must be green before a pull request can merge.
+
+## Developer Certificate of Origin
+
+Every commit carries a `Signed-off-by` trailer, which records your agreement to
+the [Developer Certificate of Origin](https://developercertificate.org/). Add it
+with the `--signoff` flag:
+
+```shell
+git commit --signoff
+```
+
+The `DCO` check verifies the trailer on every commit in a pull request, so a
+missing sign-off blocks the merge. To fix the last commit, amend it with
+`git commit --amend --signoff`; for a whole branch, use
+`git rebase --signoff main`.
+
+By signing off you certify that:
+
+```text
+(a) The contribution was created in whole or in part by me and I
+    have the right to submit it under the open source license
+    indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best
+    of my knowledge, is covered under an appropriate open source
+    license and I have the right under that license to submit that
+    work with modifications, whether created in whole or in part
+    by me, under the same open source license (unless I am
+    permitted to submit under a different license), as indicated
+    in the file; or
+
+(c) The contribution was provided directly to me by some other
+    person who certified (a), (b) or (c) and I have not modified
+    it.
+
+(d) I understand and agree that this project and the contribution
+    are public and that a record of the contribution (including all
+    personal information I submit with it, including my sign-off) is
+    maintained indefinitely and may be redistributed consistent with
+    this project or the open source license(s) involved.
+```
 
 ## Code of conduct
 
