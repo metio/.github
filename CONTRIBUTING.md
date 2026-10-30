@@ -5,7 +5,7 @@ SPDX-License-Identifier: 0BSD
 
 # Contributor Guide
 
-Thank you for improving metio's projects! Without a healthy community, any open
+Thank you for improving our projects! Without a healthy community, any open
 source project is doomed.
 
 ## Issue management
@@ -21,22 +21,27 @@ for your change and open a pull request back against it.
 
 ## Development environment
 
-Projects define their entire toolchain in a **[nix](https://nixos.org) flake**
-(`flake.nix` + `flake.lock`), so CI and your machine run byte-identical tool
-versions — a gate that is green locally is green in CI by construction, and no
-host toolchain is required. Install Nix (with flakes enabled), then run any
-gate through the dev shell:
+Projects list the tools they need in a `.breto.edn` file, which
+[breto](https://github.com/metio/breto) installs, so CI and your machine run the
+same tool versions. Most name a shared toolchain from
+[metio/toolchains](https://github.com/metio/toolchains), such as
+`{:packages ["@go"]}`. Install breto as its README describes, add the registry
+to `~/.config/breto/config.edn`:
 
-```shell
-nix develop --command <gate>   # e.g. nix develop --command go test ./...
+```clojure
+{:registries [{:github "metio/toolchains"}]}
 ```
 
-or run `nix develop` to drop into a shell with every tool on `PATH` (it prints
-the available commands on entry). The flake is the single source of tool
-versions; Renovate keeps `flake.lock` current. On Windows, work inside
-[WSL2](https://learn.microsoft.com/windows/wsl/) — Nix runs on Linux and macOS.
-A project that does not yet ship a `flake.nix` documents its own setup in its
-`README`.
+and enter the project's environment from its checkout:
+
+```shell
+eval "$(breto env)"
+```
+
+In bash, `eval "$(breto hook bash)"` in `.bashrc` does this whenever the shell
+enters a project. breto runs on Linux and macOS; on Windows, work inside
+[WSL2](https://learn.microsoft.com/windows/wsl/). A project without a
+`.breto.edn` documents its own setup in its `README`.
 
 ## Pull requests
 
