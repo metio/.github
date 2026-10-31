@@ -15,3 +15,7 @@ not ship its own copy:
 - [Funding](FUNDING.yml) — the repository Sponsor button
 
 A repository overrides any default by committing its own version of the file.
+
+## License
+
+[0BSD](LICENSES/0BSD.txt).
